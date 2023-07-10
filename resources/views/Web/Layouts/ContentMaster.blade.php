@@ -34,9 +34,17 @@
                 <span>
                   <i class="ti ti-layout-dashboard"></i>
                 </span>
-                <span class="hide-menu">Dashboard</span>
+                <span class="hide-menu">Projects</span>
               </a>
             </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href={{ route('tasks.index') }} aria-expanded="false">
+                  <span>
+                    <i class="ti ti-layout-dashboard"></i>
+                  </span>
+                  <span class="hide-menu">Tasks</span>
+                </a>
+              </li>
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">UI COMPONENTS</span>
@@ -50,7 +58,7 @@
               </a>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route('show_task') }}" aria-expanded="false">
+                <a class="sidebar-link" href="{{ route('tasks.create') }}" aria-expanded="false">
                   <span>
                     <i class="ti ti-article"></i>
                   </span>
@@ -66,6 +74,7 @@
       <!--  Header Start -->
       <header class="app-header">
         <nav class="navbar navbar-expand-lg navbar-light">
+            @yield('filter')
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
                 @yield('search')

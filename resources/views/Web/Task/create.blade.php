@@ -13,7 +13,7 @@
                 <p>{{ $error }}</p>
             @endforeach
             @endif
-            <form action="{{ route('task') }}" method="POST">
+            <form action="{{ route('tasks.store') }}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Task Name:</label>
@@ -53,7 +53,7 @@
             <p>{{ $error }}</p>
         @endforeach
         @endif
-        <form action="{{ route('task') }}" method="POST">
+        <form action="{{ route('tasks.store') }}" method="POST">
             @csrf
             <div>
                 <label for="exampleFormControlInput1" class="form-label">Task Name:</label>

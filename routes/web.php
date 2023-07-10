@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\ProjectController;
+use App\Http\Controllers\Web\TaskController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,9 +20,9 @@ Route::get('/', function () {
 });
 
 Route::resource('projects', ProjectController::class);
-Route::prefix('AddTask')->group(function () {
-    Route::get('/', [ProjectController::class ,'show_add_task'])->name('show_task');
-    Route::post('/', [ProjectController::class ,'add_task'])->name('task');
-});
+Route::resource('tasks', TaskController::class);
 
 Route::get('/project',[ProjectController::class,'search']);
+
+Route::get('/task',[TaskController::class,'search']);
+Route::get('/tag',[TaskController::class,'filter']);

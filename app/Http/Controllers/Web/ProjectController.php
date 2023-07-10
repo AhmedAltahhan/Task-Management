@@ -7,9 +7,6 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Http\Request;
 use App\Models\Project;
-use App\Models\Tag;
-use App\Models\TagTask;
-use App\Models\Task;
 use App\Models\User;
 
 class ProjectController extends Controller
@@ -77,34 +74,6 @@ class ProjectController extends Controller
         return redirect()->route('projects.index');
     }
 
-    public function show_add_task()
-    {
-        $projects=project::all();
-        $tags=Tag::all();
-        $tasks=Task::all();
-        return view('Web.Project.add_task',compact('projects','tags','tasks'));
-    }
-    public function add_task(Request $request )
-    {
-        if($request -> get('assign') == "Assign")
-        {
-            TagTask::create([
-                'task_id' => $request->task_id,
-                'tag_id' => $request->tag_id,
-            ]);
-        }
-        else if($request -> get('create') == "Create")
-        {
-            Task::create([
-                'name' => $request->name,
-                'description' => $request->description,
-                'project_id' => $request->project_id,
-            ]);
-        }
-
-        return redirect()->route('projects.index');
-    }
-
     public function search(Request $request)
     {
         $search = $request->search;
@@ -112,7 +81,7 @@ class ProjectController extends Controller
             $query->where('name','like',"%$search%");
         })->orWhereHas('user',function($query) use ($search){
             $query->where('name','like',"%$search%");
-        })->latest()->paginate(5);
+        })->latest()->paginate(10);
         return view('Web.Project.index',compact('projects','search'));
     }
 }
