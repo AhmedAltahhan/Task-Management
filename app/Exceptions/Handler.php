@@ -2,8 +2,11 @@
 
 namespace App\Exceptions;
 
+use Error;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -31,10 +34,19 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
+
         if($exception instanceof ModelNotFoundException)
         {
-            return response()->view('Web.Exceptions.page404');
+            if($request->is('api/*'))
+                return response()->json(['massage' => 'Object not found', 'meta' => []],status: 404);
+
+            return response()->view('errors.404');
+        }
+        if($exception instanceof AuthorizationException)
+        {
+            return response()->view('errors.403');
         }
 
+        return parent::render($request, $exception);
     }
 }
